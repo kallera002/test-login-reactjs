@@ -1,0 +1,69 @@
+.side-drawer {
+    height: 100%;
+    background-color: #ffffff;
+    box-shadow: 2px 0px 5px rgba(0, 0, 0, 0.5);
+    top: 0;
+    left: 0;
+    position: fixed;
+    width: 300px;
+    max-width: 300px;
+    z-index: 200;
+}
+
+.side-drawer__logo {
+    background-color: blueviolet;
+    height: 55px;
+    width: 100%;
+    color: #000000;
+}
+
+.side-drawer__logo .img {
+    display: inline;
+    min-height: 100%;
+    top: 0;
+    margin: 0;
+    padding: 0;
+    background-color: red;
+}
+
+.side-drawer__logo .lorem {
+    width: 50px;
+    max-width: 50px;
+    height: 55px;
+    float: left;
+    background-color: red;
+    text-align: center;
+    vertical-align: middle;
+    line-height: 3;
+}
+
+.side-drawer__logo h4 {
+    width: 100%;
+    max-width: 100%;
+    height: 55px;
+    float: left;
+    padding-left: 3rem;
+    padding-top: 1rem;
+}
+
+
+.side-drawer ul {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    top: 0;
+    height: 100%;
+    padding-top: 0.5rem;
+}
+
+.side-drawer a {
+    text-decoration: none;
+    font-size: 1.1rem;
+    color: blueviolet;
+}
+
+.side-drawera a:hover,
+.side-drawera a:active {
+    text-decoration: none;
+    color: coral;
+}
