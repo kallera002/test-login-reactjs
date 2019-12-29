@@ -3,47 +3,28 @@ import { Component } from "react";
 import Tollbar from "./Tollbar/Tollbar";
 import SideDrawer from "./SideDrawer/SideDrawer";
 import BackDrop from "./Backdrop/Backdrop";
-// import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-
-// const Navbar = props => {
-//   return (
-//     <nav className="navbar navbar-dark bg-dark">
-//       <a className="navbar-brand" href="#">
-//         <FontAwesomeIcon
-//           icon={["fa", "home"]}
-//           size="2x"
-//           fixedWidth
-//           style={{ marginRight: "3px" }}
-//         />
-//         Home
-//       </a>
-//     </nav>
-//   );
-// };
 
 class Navbar extends Component {
   state = {
     sideDrawerOpen: false
   };
 
-  drawerToggleclickHandler = () => {
+  drawerToggleClickHandler = () => {
     this.setState(prevState => {
       return { sideDrawerOpen: !prevState.sideDrawerOpen };
     });
   };
 
   render() {
-    let sideDrawer;
     let backDrop;
 
     if (this.state.sideDrawerOpen) {
-      sideDrawer = <SideDrawer />;
-      backDrop = <BackDrop />;
+      backDrop = <BackDrop  click={this.drawerToggleClickHandler}/>;
     }
     return (
       <div>
-        <Tollbar drawerClickHandler={this.drawerToggleclickHandler} />
-        {sideDrawer}
+        <Tollbar drawerClickHandler={this.drawerToggleClickHandler} />
+        <SideDrawer click={this.drawerToggleClickHandler} show={this.state.sideDrawerOpen} />
         {backDrop}
       </div>
     );

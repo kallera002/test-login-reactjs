@@ -1,31 +1,29 @@
-import React, { Fragment } from "react";
-import "./SideDrawer.css";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-
-const SideDrawer = () => {
+import React, { Fragment } from 'react';
+import './SideDrawer.css';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { Link } from 'react-router-dom';
+const SideDrawer = props => {
+  let drawerClasses = 'side-drawer';
+  if (props.show) {
+    drawerClasses = 'side-drawer open';
+  }
   return (
     <Fragment>
-      <nav className="side-drawer">
+      <nav className={drawerClasses}>
         <div className="side-drawer__logo">
-          <div style={{ display: "inline-block" }} className="lorem">
-            logi
-            <img src="logo192.png" />
+          <div className="img">
+            <img src="logo192.png" alt="" />
           </div>
-          <div style={{ display: "inline-block" }}>
+          <div className="logo__text">
             <h4>My Apps</h4>
           </div>
-          <div style={{ display: "inline-block" }}>
-            <FontAwesomeIcon
-              icon={["fa", "home"]}
-              size="1x"
-              fixedWidth
-              style={{ marginleft: "10px" }}
-            />
+          <div className="font__awesome" onClick={props.click}>
+            <FontAwesomeIcon icon={['fa', 'arrow-left']} size="1x" fixedWidth />
           </div>
         </div>
         <ul>
           <li>
-            <a href="/">Product</a>
+            <Link to="/login">Login </Link>
           </li>
           <li>
             <a href="/">User</a>
