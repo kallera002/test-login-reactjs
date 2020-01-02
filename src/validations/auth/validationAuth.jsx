@@ -1,20 +1,19 @@
 /* eslint-disable react-hooks/rules-of-hooks */
-import React, { useState, useEffect } from 'react';
-import InputText from '../rules/onInput/inputText';
-import InputPassword from '../rules/onInput/inputPassword';
-import InputPasswordConfirmation from '../rules/onInput/inputPasswordConfirmation';
-import InputEmail from '../rules/onInput/inputEmail';
+import React, { useState, useEffect } from "react";
+import InputText from "../rules/onInput/inputText";
+import InputPassword from "../rules/onInput/inputPassword";
+import InputPasswordConfirmation from "../rules/onInput/inputPasswordConfirmation";
+import InputEmail from "../rules/onInput/inputEmail";
 
-import passwordAuthentication from '../rules/submitForm/password';
-import UsernameAuthentication from '../rules/submitForm/username';
-import EmailAuthentication from '../rules/submitForm/email';
-import passwordConfirmationAuthentication from '../rules/submitForm/passwordConfirmation';
+import passwordAuthentication from "../rules/submitForm/password";
+import UsernameAuthentication from "../rules/submitForm/username";
+import EmailAuthentication from "../rules/submitForm/email";
+import passwordConfirmationAuthentication from "../rules/submitForm/passwordConfirmation";
 
 const ValidationAuth = initialState => {
   const [values, setValues] = useState(initialState);
   const [errors, setErrors] = useState({});
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [insertIntoDB, setInsertIntoDB] = useState(false);
 
   const VALIDATION_RULE_TEXT = {
     text: {
@@ -35,13 +34,11 @@ const ValidationAuth = initialState => {
     if (isSubmitting) {
       if (noErrors) {
         setIsSubmitting(false);
-        setInsertIntoDB(true);
       } else {
         setIsSubmitting(false);
-        setInsertIntoDB(false);
       }
     }
-  }, [errors, isSubmitting, insertIntoDB]);
+  }, [errors, isSubmitting]);
 
   // lakukan perubahan pada value setiap ada perubahan dari form
   const handleChange = event => {
@@ -78,7 +75,7 @@ const ValidationAuth = initialState => {
     const errorPassword = passwordAuthentication(values.password);
     // const errorUsername = UsernameAuthentication(values.username);
     let validationErrors = { ...errorPassword };
-    if (formName === 'register') {
+    if (formName === "register") {
       const errorEmail = EmailAuthentication(values.email);
       const errorPasswordConfirmation = passwordConfirmationAuthentication(
         values.password_confirmation,
@@ -104,8 +101,7 @@ const ValidationAuth = initialState => {
     handleInputText,
     handleInputPassword,
     handleInputPasswordConfirmation,
-    handleInputEmail,
-    insertIntoDB
+    handleInputEmail
   };
 };
 

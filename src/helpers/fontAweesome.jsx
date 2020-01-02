@@ -6,7 +6,9 @@ import {
   faCircle,
   faPlus,
   faArrowLeft,
-  faTimes
+  faSpinner,
+  faTimes,
+  faSync
 } from "@fortawesome/free-solid-svg-icons";
 import {
   faGithubAlt,
@@ -26,6 +28,8 @@ library.add(
   faTwitter,
   faArrowLeft,
   faPlus,
-  faTimes
+  faTimes,
+  faSpinner,
+  faSync
   // more icons go here
 );

@@ -146,3 +146,32 @@ form label {
   padding-bottom: 0;
   margin-bottom: 0;
 }
+
+
+
+/* ANIMATION */
+@keyframes spinner {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.fa-sync {
+  animation: spinner 3s linear infinite;
+  margin-right: 10px;
+}
+
+button:disabled,
+button[disabled] {
+  border: 1px solid #999999;
+  background-color: #cccccc;
+  cursor: not-allowed;
+  color: red;
+}
+
+button:disabled:hover,
+button[disabled]:hover {
+  background-color: #ffffff;
+  color: red;
+  cursor: not-allowed;
+}

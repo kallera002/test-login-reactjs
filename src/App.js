@@ -8,7 +8,7 @@ function App() {
     <div className="App">
       <div>
         <Routes />
-      </div>
+      </div>{" "}
     </div>
   );
 }

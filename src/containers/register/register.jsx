@@ -1,40 +1,33 @@
-import React, { Fragment, useEffect } from 'react';
-import './register.css';
-import InputText from '../../components/forms/inputText';
-import ValidationAuth from '../../validations/auth/validationAuth';
+import React, { Fragment, useState } from "react";
+import "./register.css";
+import InputText from "../../components/forms/inputText";
+import Button from "../../components/forms/button";
+import ValidationAuth from "../../validations/auth/validationAuth";
+import HttpPostData from "./../../constant/httpRequest";
 
-import HttpPostData from './../../constant/httpRequest';
 const INITIAL_STATE = {
-  email: 'fikriramadhan002@gmail.com',
-  password: 'Namakurama002!',
-  password_confirmation: 'Namakurama002!',
-  username: 'Kallera002'
+  email: "fikriramadhan002@gmail.com",
+  password: "Namakurama002!",
+  password_confirmation: "Namakurama002!",
+  username: "Kallera002"
 };
 
 const Register = () => {
-  const [res, apiMethod] = HttpPostData({
-    url: 'http://localhost:8080/post',
-    headers: { ContentType: 'application/json' },
-    payload: {}
-  });
-
   const {
     handleChange,
     values,
-    handleSubmit,
     errors,
     handleInputPassword,
     handleInputText,
-    insertIntoDB,
     handleInputPasswordConfirmation,
     handleInputEmail
   } = ValidationAuth(INITIAL_STATE);
-  console.log(111);
+  console.log(process.env.REACT_APP_CUSTOM_BASE_URL);
 
-  useEffect(() => {
-    if (insertIntoDB) {
-      apiMethod();
-    }
+  const [res, callAPIPost] = HttpPostData({
+    url: process.env.REACT_APP_CUSTOM_BASE_URL + "register",
+    headers: { ContentType: "application/json" },
+    payload: values
   });
 
   return (
@@ -45,9 +38,19 @@ const Register = () => {
             <h4>Register</h4>
           </header>
         </div>
-        <form action="" className="register__form-content" onSubmit={handleSubmit} name="register">
+        <form
+          action=""
+          className="register__form-content"
+          onSubmit={e => {
+            e.preventDefault();
+            callAPIPost();
+          }}
+          name="register"
+        >
+          <p>{res.conflig ? res.conflig.error : ""}</p>
+
           <InputText
-            error={errors.username}
+            error={res.error ? res.error.username : errors.username}
             label="username"
             change={handleChange}
             input={handleInputText}
@@ -56,7 +59,7 @@ const Register = () => {
             type="text"
           />
           <InputText
-            error={errors.email}
+            error={res.error ? res.error.email : errors.email}
             label="email"
             change={handleChange}
             input={handleInputEmail}
@@ -67,7 +70,7 @@ const Register = () => {
 
           <InputText
             label="password"
-            error={errors.password}
+            error={res.error ? res.error.password : errors.password}
             name="password"
             change={handleChange}
             input={handleInputPassword}
@@ -76,7 +79,7 @@ const Register = () => {
           />
 
           <InputText
-            error={errors.password_confirmation}
+            error={res.error ? res.error.confirmation : errors.confirmation}
             label="password confirmation"
             name="password_confirmation"
             change={handleChange}
@@ -86,9 +89,9 @@ const Register = () => {
           />
           <div className="row">
             <div className="col-12 text-center">
-              <button type="submit" className="register__btn">
+              <Button type="submit" isLoading={res.isLoading}>
                 Register
-              </button>
+              </Button>
             </div>
           </div>
         </form>
