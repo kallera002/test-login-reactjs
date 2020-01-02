@@ -1,7 +1,7 @@
-import React, { Fragment } from "react";
-import "./Tollbar.css";
-import DrawerButton from "../SideDrawer/DrawerButton";
-import { Link } from 'react-router-dom'; 
+import React, { Fragment } from 'react';
+import './Tollbar.css';
+import DrawerButton from '../SideDrawer/DrawerButton';
+import { Link } from 'react-router-dom';
 
 const Tollbar = props => {
   return (
@@ -9,7 +9,7 @@ const Tollbar = props => {
       <header className="tollbar">
         <nav className="tollbar__navigation">
           <div className="toolbar__toggle-button">
-          <DrawerButton click={props.drawerClickHandler} />
+            <DrawerButton click={props.drawerClickHandler} />
           </div>
 
           <div className="tollbar__logo">
@@ -18,10 +18,10 @@ const Tollbar = props => {
           <div className="spacer"></div>
           <div className="tollbar-navigation__items">
             <ul>
-              <li>
+              <li className="toolbar__item">
                 <Link to="/login">Login</Link>
               </li>
-              <li>
+              <li className="to0lbar__item">
                 <a href="/">User</a>
               </li>
             </ul>

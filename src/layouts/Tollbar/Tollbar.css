@@ -45,6 +45,7 @@
 }
 
 .tollbar__navigation li {
+  margin-top: -15px;
   padding: 0 0.7rem;
 }
 

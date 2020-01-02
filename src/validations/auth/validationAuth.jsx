@@ -1,14 +1,14 @@
 /* eslint-disable react-hooks/rules-of-hooks */
-import React, { useState, useEffect } from "react";
-import InputText from "../rules/onInput/inputText";
-import InputPassword from "../rules/onInput/inputPassword";
-import InputPasswordConfirmation from "../rules/onInput/inputPasswordConfirmation";
-import InputEmail from "../rules/onInput/inputEmail";
+import React, { useState, useEffect } from 'react';
+import InputText from '../rules/onInput/inputText';
+import InputPassword from '../rules/onInput/inputPassword';
+import InputPasswordConfirmation from '../rules/onInput/inputPasswordConfirmation';
+import InputEmail from '../rules/onInput/inputEmail';
 
-import passwordAuthentication from "../rules/submitForm/password";
-import UsernameAuthentication from "../rules/submitForm/username";
-import EmailAuthentication from "../rules/submitForm/email";
-import passwordConfirmationAuthentication from "../rules/submitForm/passwordConfirmation";
+import passwordAuthentication from '../rules/submitForm/password';
+import UsernameAuthentication from '../rules/submitForm/username';
+import EmailAuthentication from '../rules/submitForm/email';
+import passwordConfirmationAuthentication from '../rules/submitForm/passwordConfirmation';
 
 const ValidationAuth = initialState => {
   const [values, setValues] = useState(initialState);
@@ -19,7 +19,7 @@ const ValidationAuth = initialState => {
   const VALIDATION_RULE_TEXT = {
     text: {
       required: true,
-      full: true
+      full: false
     }
   };
 
@@ -76,15 +76,14 @@ const ValidationAuth = initialState => {
     event.preventDefault();
     const formName = event.target.name;
     const errorPassword = passwordAuthentication(values.password);
-    const errorUsername = UsernameAuthentication(values.username);
-    let validationErrors = { ...errorPassword, ...errorUsername };
-    if (formName === "register") {
+    // const errorUsername = UsernameAuthentication(values.username);
+    let validationErrors = { ...errorPassword };
+    if (formName === 'register') {
       const errorEmail = EmailAuthentication(values.email);
       const errorPasswordConfirmation = passwordConfirmationAuthentication(
         values.password_confirmation,
         values.password
       );
-      console.log("TCL: errorPasswordConfirmation", errorPasswordConfirmation);
       validationErrors = {
         ...validationErrors,
         ...errorEmail,
@@ -102,7 +101,6 @@ const ValidationAuth = initialState => {
     values,
     handleSubmit,
     errors,
-    isSubmitting,
     handleInputText,
     handleInputPassword,
     handleInputPasswordConfirmation,

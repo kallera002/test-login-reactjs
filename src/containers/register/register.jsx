@@ -1,32 +1,42 @@
-import React, { Fragment } from "react";
-import "./register.css";
-import InputText from "../../components/forms/inputText";
-import ValidationAuth from "../../validations/auth/validationAuth";
+import React, { Fragment, useEffect } from 'react';
+import './register.css';
+import InputText from '../../components/forms/inputText';
+import ValidationAuth from '../../validations/auth/validationAuth';
 
+import HttpPostData from './../../constant/httpRequest';
 const INITIAL_STATE = {
-  email: "",
-  password: "",
-  password_confirmation: "",
-  username: ""
+  email: 'fikriramadhan002@gmail.com',
+  password: 'Namakurama002!',
+  password_confirmation: 'Namakurama002!',
+  username: 'Kallera002'
 };
 
 const Register = () => {
+  const [res, apiMethod] = HttpPostData({
+    url: 'http://localhost:8080/post',
+    headers: { ContentType: 'application/json' },
+    payload: {}
+  });
+
   const {
     handleChange,
     values,
     handleSubmit,
     errors,
-    isSubmitting,
     handleInputPassword,
     handleInputText,
     insertIntoDB,
     handleInputPasswordConfirmation,
     handleInputEmail
   } = ValidationAuth(INITIAL_STATE);
+  console.log(111);
 
-  if (insertIntoDB) {
-    console.log(1);
-  }
+  useEffect(() => {
+    if (insertIntoDB) {
+      apiMethod();
+    }
+  });
+
   return (
     <Fragment>
       <div className="container form__register">
@@ -35,19 +45,14 @@ const Register = () => {
             <h4>Register</h4>
           </header>
         </div>
-        <form
-          action=""
-          className="register__form-content"
-          onSubmit={handleSubmit}
-          name="register"
-        >
+        <form action="" className="register__form-content" onSubmit={handleSubmit} name="register">
           <InputText
-            label="username"
             error={errors.username}
-            name="username"
+            label="username"
             change={handleChange}
             input={handleInputText}
             value={values.username}
+            name="username"
             type="text"
           />
           <InputText
