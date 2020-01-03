@@ -1,28 +1,33 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 import React, { Fragment } from "react";
 import "./login.css";
-import ValidationAuth from "../../validations/auth/validationAuth";
+import HandleLogin from "./handleLogin";
 import InputText from "../../components/forms/inputText";
-
+import Button from "../../components/forms/button";
 import { Link } from "react-router-dom";
-
+import LocalStorage from "./../../helpers/localStorage";
 const INITIAL_STATE = {
-  password: "",
-  username: ""
+  password: "Namakurama002!",
+  username: "Kallera002"
 };
 
-const Login = props => {
+const Login = () => {
   const {
     handleChange,
     values,
     handleSubmit,
     errors,
-    isSubmitting,
     handleInputPassword,
-    handleInputText
-  } = ValidationAuth(INITIAL_STATE);
+    handleInputText,
+    res
+  } = HandleLogin(INITIAL_STATE);
 
-  const disabledButton = Object.keys(errors).length;
+  if (res.data) {
+    const { setToken, getCurrentUser } = LocalStorage(res.data);
+    setToken();
+    const curentUser = getCurrentUser();
+    console.log(curentUser);
+  }
 
   return (
     <Fragment>
@@ -32,29 +37,38 @@ const Login = props => {
             <h4>Login Form</h4>
           </header>
         </div>
+        <div className="text-center">
+          <p style={{ color: "red", marginBottom: 0 }}>
+            {res.conflig ? res.conflig.error : ""}
+          </p>
+        </div>
         <div className="login__form-content">
           <form className="form__control" onSubmit={handleSubmit} name="login">
             {/* input username */}
             <InputText
               label="username"
-              error={errors.username}
+              error={res.error ? res.error.username : errors.username}
               name="username"
               change={handleChange}
               input={handleInputText}
               value={values.username}
               type="text"
+              required={true}
+              alpaNumeric="true"
             />
             {/* end */}
 
             {/* input Password */}
             <InputText
               label="password"
-              error={errors.password}
+              error={res.error ? res.error.password : errors.password}
               name="password"
               change={handleChange}
               input={handleInputPassword}
               value={values.password}
-              type="passwords"
+              type="password"
+              required={true}
+              specialCharacter="true"
             />
             {/* end */}
 
@@ -68,15 +82,7 @@ const Login = props => {
               </div>
               <div className="col-6">
                 <div className="">
-                  <button
-                    className={
-                      "submit__btn " +
-                      (disabledButton || isSubmitting ? "disabled" : "")
-                    }
-                    type="submit"
-                  >
-                    Submit
-                  </button>
+                  <Button type="submit">Login</Button>
                 </div>
               </div>
             </div>

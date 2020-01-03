@@ -1,18 +1,19 @@
-import React, { Fragment, useState } from "react";
+import React, { Fragment } from "react";
 import "./register.css";
 import InputText from "../../components/forms/inputText";
 import Button from "../../components/forms/button";
-import ValidationAuth from "../../validations/auth/validationAuth";
-import HttpPostData from "./../../constant/httpRequest";
+import HandleRegister from "./handleRegister";
+import { Redirect } from "react-router";
 
 const INITIAL_STATE = {
-  email: "fikriramadhan002@gmail.com",
-  password: "Namakurama002!",
-  password_confirmation: "Namakurama002!",
-  username: "Kallera002"
+  email: "",
+  password: "",
+  password_confirmation: "",
+  username: ""
 };
 
 const Register = () => {
+  // FUNGSI UNTUK SEMUA VALIDASI FORM
   const {
     handleChange,
     values,
@@ -20,15 +21,15 @@ const Register = () => {
     handleInputPassword,
     handleInputText,
     handleInputPasswordConfirmation,
-    handleInputEmail
-  } = ValidationAuth(INITIAL_STATE);
-  console.log(process.env.REACT_APP_CUSTOM_BASE_URL);
+    handleInputEmail,
+    handleSubmit,
+    res
+  } = HandleRegister(INITIAL_STATE);
 
-  const [res, callAPIPost] = HttpPostData({
-    url: process.env.REACT_APP_CUSTOM_BASE_URL + "register",
-    headers: { ContentType: "application/json" },
-    payload: values
-  });
+  // Redirect setelah submit data
+  if (res.status) {
+    return <Redirect to="/" />;
+  }
 
   return (
     <Fragment>
@@ -41,13 +42,10 @@ const Register = () => {
         <form
           action=""
           className="register__form-content"
-          onSubmit={e => {
-            e.preventDefault();
-            callAPIPost();
-          }}
+          onSubmit={handleSubmit}
           name="register"
         >
-          <p>{res.conflig ? res.conflig.error : ""}</p>
+          <p style={{ color: "red" }}>{res.conflig ? res.conflig.error : ""}</p>
 
           <InputText
             error={res.error ? res.error.username : errors.username}
@@ -57,6 +55,8 @@ const Register = () => {
             value={values.username}
             name="username"
             type="text"
+            required={true}
+            alpaNumeric="true"
           />
           <InputText
             error={res.error ? res.error.email : errors.email}
@@ -66,6 +66,7 @@ const Register = () => {
             value={values.email}
             name="email"
             type="text"
+            mail="true"
           />
 
           <InputText
@@ -76,16 +77,23 @@ const Register = () => {
             input={handleInputPassword}
             value={values.password}
             type="password"
+            required={true}
+            specialCharacter="true"
           />
 
           <InputText
-            error={res.error ? res.error.confirmation : errors.confirmation}
+            error={
+              res.error
+                ? res.error.password_confirmation
+                : errors.password_confirmation
+            }
             label="password confirmation"
             name="password_confirmation"
             change={handleChange}
             input={handleInputPasswordConfirmation}
             value={values.password_confirmation}
             type="password"
+            matches="true"
           />
           <div className="row">
             <div className="col-12 text-center">

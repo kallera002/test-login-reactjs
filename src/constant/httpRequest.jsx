@@ -9,30 +9,36 @@ const HttpPostData = ({ url, headers, payload }) => {
     data: null,
     error: null,
     isLoading: false,
+    status: false,
     conflig: null
   });
   const callAPIPost = useCallback(() => {
     async function PostData() {
       try {
-        setRes(prevState => ({ ...prevState, isLoading: true, conflig: null }));
+        setRes(prevState => ({ ...prevState, isLoading: true }));
         axios
           .post(url, payload, headers)
           .then(res => {
             setRes({
-              data: res.data,
+              data: res.data.data,
               isLoading: false,
               error: null,
-              conflig: null
+              conflig: null,
+              status: true
             });
           })
           .catch(async error => {
             let errorList = {};
             let conflig = {};
+
             if (error.response.status === 422) {
               errorList = await errorHandler422(error.response.data);
             }
 
-            if (error.response.status === 409) {
+            if (
+              error.response.status === 409 ||
+              error.response.status === 401
+            ) {
               conflig = await errorHandler409(error.response.data);
             }
 

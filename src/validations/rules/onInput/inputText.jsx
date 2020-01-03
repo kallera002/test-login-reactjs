@@ -1,25 +1,24 @@
-import Regex from './../../../constant/regex';
-import Errors from '../../../constant/error';
+import Regex from "./../../../constant/regex";
+import Errors from "../../../constant/error";
 
-const InputText = (validationRules, event) => {
+const InputText = event => {
   let errors = {};
-  const rules = validationRules.text;
   const value = event.target.value;
   const name = event.target.name;
+  const required = event.target.required;
+  const aplaNumeric = event.target.getAttribute("alpa-numeric");
 
-  if (rules.hasOwnProperty('required') && rules.required) {
-    if (value === '') {
+  if (required) {
+    if (value === "") {
       errors[name] = Errors.username.required;
       return errors;
     }
   }
 
-  if (rules.hasOwnProperty('full') && rules.full) {
-    if (rules.full) {
-      if (!value.match(Regex.username)) {
-        errors[name] = Errors.username.invalid;
-        return errors;
-      }
+  if (aplaNumeric) {
+    if (!value.match(Regex.username)) {
+      errors[name] = Errors.username.invalid;
+      return errors;
     }
   }
 

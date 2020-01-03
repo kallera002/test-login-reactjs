@@ -9,11 +9,12 @@ const Errors = {
     required: "Password is Required"
   },
   passwordConfirmation: {
-    notMatch: "Your password and confirmation password do not match."
+    notMatch: "Your password and confirmation password do not match.",
+    required: "Password is Required."
   },
   username: {
     invalid:
-      "Usernames must between 8 to 15 character, use uppercase letters, numbers and special characters",
+      "Usernames must between 8 to 15 character, use uppercase letters, numbers",
     required: "Username required"
   }
 };

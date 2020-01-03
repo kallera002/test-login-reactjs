@@ -6,6 +6,7 @@ import history from "./../helpers/history";
 import { Route } from "react-router";
 import Login from "../containers/login/login";
 import Register from "../containers/register/register";
+import Home from "../containers/home/home";
 const Routes = props => {
   return (
     <Fragment>
@@ -13,6 +14,7 @@ const Routes = props => {
         <div>
           <Navbar />
           <main style={{ marginTop: "60px" }}>
+            <Route exact path="/" component={Home} />
             <Route path="/login" component={Login} />
             <Route path="/register" component={Register} />
           </main>
