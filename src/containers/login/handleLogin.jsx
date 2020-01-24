@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import InputPassword from "./../../validations/rules/onInput/inputPassword";
 import InputText from "./../../validations/rules/onInput/inputText";
 
@@ -28,7 +28,7 @@ const HandleLogin = initialState => {
         setIsSubmitting(false);
       }
     }
-  }, [errors, setIsSubmitting]);
+  }, [errors, isSubmitting]);
 
   // lakukan perubahan pada value setiap ada perubahan dari form
   const handleChange = event => {

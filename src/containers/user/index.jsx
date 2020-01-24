@@ -1,6 +1,6 @@
 import React, { Fragment } from "react";
 
-const Home = props => {
+const User = props => {
   return (
     <Fragment>
       Lorem ipsum dolor sit amet consectetur adipisicing elit. Facere saepe
@@ -11,4 +11,4 @@ const Home = props => {
   );
 };
 
-export default Home;
+export default User;

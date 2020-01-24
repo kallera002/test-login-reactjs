@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/rules-of-hooks */
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import InputText from "../../validations/rules/onInput/inputText";
 import InputPassword from "../../validations/rules/onInput/inputPassword";
 import InputPasswordConfirmation from "../../validations/rules/onInput/inputPasswordConfirmation";
@@ -33,7 +33,7 @@ const HandleRegister = initialState => {
         setIsSubmitting(false);
       }
     }
-  }, [errors, setIsSubmitting]);
+  }, [errors, isSubmitting]);
 
   // lakukan perubahan pada value setiap ada perubahan dari form
   const handleChange = event => {

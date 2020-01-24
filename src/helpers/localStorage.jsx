@@ -1,27 +1,43 @@
-import React, { useState } from "react";
-
-const LocalStorage = token => {
+const LocalStorage = () => {
   // const [values, setValues] = useState(token);
-  let data = token;
-
   // // Return a wrapped version of useState's setter function that ...
   // // ... persists the new value to localStorage.
-  const setToken = () => {
+  const setToken = data => {
     localStorage.setItem(
       btoa(process.env.LOCALSTORAGE_KEY),
       JSON.stringify(data)
     );
   };
 
-  const getCurrentUser = () => {
+  const getToken = () => {
     const token = localStorage.getItem(btoa(process.env.LOCALSTORAGE_KEY));
-    const data = atob(token.split(".")[1]);
-    return JSON.parse(data).username;
+    if (token) {
+      const data = atob(token.split(".")[1]);
+      return JSON.parse(data);
+    } else {
+      return null;
+    }
+  };
+
+  const expiredToken = () => {
+    const token = getToken();
+    if (token) {
+      const exp = token.exp;
+      if (exp < Date.now() / 1000) {
+        localStorage.clear();
+        return true;
+      } else {
+        return false;
+      }
+    } else {
+      return true;
+    }
   };
 
   return {
     setToken,
-    getCurrentUser
+    getToken,
+    expiredToken
   };
 };
 

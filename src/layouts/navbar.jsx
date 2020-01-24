@@ -1,34 +1,33 @@
-import React from "react";
-import { Component } from "react";
+import React, { useState } from "react";
 import Tollbar from "./Tollbar/Tollbar";
 import SideDrawer from "./SideDrawer/SideDrawer";
 import BackDrop from "./Backdrop/Backdrop";
+import AuthContextProvider from "./../ContextApi/authContect";
+const Navbar = () => {
+  const [sideDrawerOpen, setSideDrawerOpen] = useState(false);
 
-class Navbar extends Component {
-  state = {
-    sideDrawerOpen: false
-  };
+  const drawerToggleClickHandler = () => {
+    setSideDrawerOpen(prevState => {
+      console.log(prevState.sideDrawerOpen);
 
-  drawerToggleClickHandler = () => {
-    this.setState(prevState => {
-      return { sideDrawerOpen: !prevState.sideDrawerOpen };
+      return { sideDrawerOpen: !prevState };
     });
   };
 
-  render() {
-    let backDrop;
+  let backDrop;
+  if (sideDrawerOpen) {
+    backDrop = <BackDrop click={drawerToggleClickHandler} />;
+  }
 
-    if (this.state.sideDrawerOpen) {
-      backDrop = <BackDrop  click={this.drawerToggleClickHandler}/>;
-    }
-    return (
+  return (
+    <AuthContextProvider>
       <div>
-        <Tollbar drawerClickHandler={this.drawerToggleClickHandler} />
-        <SideDrawer click={this.drawerToggleClickHandler} show={this.state.sideDrawerOpen} />
+        <Tollbar drawerClickHandler={drawerToggleClickHandler} />
+        <SideDrawer click={drawerToggleClickHandler} show={sideDrawerOpen} />
         {backDrop}
       </div>
-    );
-  }
-}
+    </AuthContextProvider>
+  );
+};
 
 export default Navbar;

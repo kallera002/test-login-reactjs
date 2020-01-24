@@ -4,9 +4,12 @@ import Navbar from "./../layouts/navbar";
 import { Router } from "react-router-dom";
 import history from "./../helpers/history";
 import { Route } from "react-router";
-import Login from "../containers/login/login";
-import Register from "../containers/register/register";
-import Home from "../containers/home/home";
+
+import { Home, User } from "./ListComponent/component";
+import { Login, Register } from "./ListComponent/auth";
+import { PrivateRoute, NothaveToken } from "./ListComponent/router";
+import AuthContextProvider from "./../ContextApi/authContect";
+
 const Routes = props => {
   return (
     <Fragment>
@@ -14,9 +17,12 @@ const Routes = props => {
         <div>
           <Navbar />
           <main style={{ marginTop: "60px" }}>
-            <Route exact path="/" component={Home} />
-            <Route path="/login" component={Login} />
-            <Route path="/register" component={Register} />
+            <PrivateRoute exact path="/" component={Home} />
+            <PrivateRoute path="/user" component={User} />
+            <AuthContextProvider>
+              <NothaveToken path="/login" component={Login} />
+            </AuthContextProvider>
+            <NothaveToken path="/register" component={Register} />
           </main>
         </div>
       </Router>
