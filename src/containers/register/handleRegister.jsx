@@ -1,16 +1,16 @@
 /* eslint-disable react-hooks/rules-of-hooks */
-import React, { useState, useEffect } from "react";
-import InputText from "../../validations/rules/onInput/inputText";
-import InputPassword from "../../validations/rules/onInput/inputPassword";
-import InputPasswordConfirmation from "../../validations/rules/onInput/inputPasswordConfirmation";
-import InputEmail from "../../validations/rules/onInput/inputEmail";
+import { useState, useEffect } from 'react';
+import InputText from '../../validations/rules/onInput/inputText';
+import InputPassword from '../../validations/rules/onInput/inputPassword';
+import InputPasswordConfirmation from '../../validations/rules/onInput/inputPasswordConfirmation';
+import InputEmail from '../../validations/rules/onInput/inputEmail';
 
-import UsernameAuthentication from "../../validations/rules/submitForm/username";
-import passwordAuthentication from "../../validations/rules/submitForm/password";
-import EmailAuthentication from "../../validations/rules/submitForm/email";
-import passwordConfirmationAuthentication from "../../validations/rules/submitForm/passwordConfirmation";
+import UsernameAuthentication from '../../validations/rules/submitForm/username';
+import passwordAuthentication from '../../validations/rules/submitForm/password';
+import EmailAuthentication from '../../validations/rules/submitForm/email';
+import passwordConfirmationAuthentication from '../../validations/rules/submitForm/passwordConfirmation';
 
-import HttpPostData from "../../constant/httpRequest";
+import HttpPostData from '../../constant/httpRequest';
 
 const HandleRegister = initialState => {
   const [values, setValues] = useState(initialState);
@@ -19,11 +19,16 @@ const HandleRegister = initialState => {
 
   // FUNGSI UNTUK STORE DATA KE DATABASE
   const [res, callAPIPost] = HttpPostData({
-    url: process.env.REACT_APP_CUSTOM_BASE_URL + "auth/register",
-    headers: { ContentType: "application/json" },
+    url: process.env.REACT_APP_CUSTOM_BASE_URL + 'auth/register',
+    headers: { ContentType: 'application/json' },
     payload: values
   });
 
+  /**
+   *
+   * @description reset nilai isSubmiting
+   *
+   */
   useEffect(() => {
     const noErrors = Object.keys(errors).length === 0;
     if (isSubmitting) {
@@ -33,9 +38,14 @@ const HandleRegister = initialState => {
         setIsSubmitting(false);
       }
     }
-  }, [errors, setIsSubmitting]);
+  }, [errors, isSubmitting]);
 
-  // lakukan perubahan pada value setiap ada perubahan dari form
+  /**
+   *
+   * @description set nilai dari form yang akan di submitke database
+   * @param {*} event
+   *
+   */
   const handleChange = event => {
     setValues({
       ...values,
@@ -44,8 +54,10 @@ const HandleRegister = initialState => {
   };
 
   /**
+   *
    * @description validasi form input type text
    * @param {event dari form input} event
+   *
    */
   const handleInputText = event => {
     delete errors[event.target.name];
@@ -54,8 +66,10 @@ const HandleRegister = initialState => {
   };
 
   /**
+   *
    * @description validasi form input type password
    * @param {event dari form input} event
+   *
    */
   const handleInputPassword = event => {
     delete errors[event.target.name];
@@ -64,8 +78,10 @@ const HandleRegister = initialState => {
   };
 
   /**
+   *
    * @description validasi form input type password confirmation
    * @param {event dari form input} event
+   *
    */
   const handleInputPasswordConfirmation = event => {
     delete errors[event.target.name];
