@@ -25,19 +25,24 @@ const LocalStorage = () => {
       const exp = token.exp;
       if (exp < Date.now() / 1000) {
         localStorage.clear();
-        return true;
-      } else {
         return false;
+      } else {
+        return true;
       }
     } else {
-      return true;
+      return false;
     }
+  };
+
+  const clearToten = () => {
+    localStorage.clear();
   };
 
   return {
     setToken,
     getToken,
-    expiredToken
+    expiredToken,
+    clearToten
   };
 };
 

@@ -1,5 +1,4 @@
 import React, { Fragment } from "react";
-import LocalStorage from "../../helpers/localStorage";
 
 const Home = props => {
   return (

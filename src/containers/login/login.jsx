@@ -14,7 +14,7 @@ const INITIAL_STATE = {
 };
 
 const Login = props => {
-  const { setAuth } = useContext(AuthContext);
+  const { dispatch } = useContext(AuthContext);
 
   const {
     handleChange,
@@ -30,7 +30,7 @@ const Login = props => {
     const { setToken } = LocalStorage();
     setToken(res.data);
     props.history.push("/");
-    setAuth();
+    dispatch({ type: "LOGIN" });
   }
 
   return (

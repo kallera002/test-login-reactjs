@@ -8,7 +8,7 @@ const PrivateRoute = ({ component: Component, ...rest }) => {
     <Route
       {...rest}
       render={props =>
-        !expiredToken() ? (
+        expiredToken() ? (
           <Component {...props} />
         ) : (
           <Redirect

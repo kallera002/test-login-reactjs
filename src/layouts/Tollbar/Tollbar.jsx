@@ -3,9 +3,12 @@ import "./Tollbar.css";
 import DrawerButton from "../SideDrawer/DrawerButton";
 import { Link } from "react-router-dom";
 import { AuthContext } from "./../../ContextApi/authContect";
+import AfterLogin from "../Menus/AfterLogin";
+import BeforeLogin from "../Menus/BeforeLogin";
 
 const Tollbar = props => {
   const { isLogged } = useContext(AuthContext);
+
   return (
     <Fragment>
       <header className="tollbar">
@@ -19,19 +22,7 @@ const Tollbar = props => {
           </div>
           <div className="spacer"></div>
           <div className="tollbar-navigation__items">
-            {isLogged ? (
-              <ul>
-                <li className="to0lbar__item">
-                  <Link to="/user">User</Link>
-                </li>
-              </ul>
-            ) : (
-              <ul>
-                <li className="toolbar__item">
-                  <Link to="/login">Login</Link>
-                </li>
-              </ul>
-            )}
+            {isLogged ? <AfterLogin /> : <BeforeLogin />}
           </div>
         </nav>
       </header>

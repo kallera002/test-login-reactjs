@@ -1,24 +1,17 @@
-import React, { createContext, useState, useEffect } from "react";
+import React, { createContext, useReducer } from "react";
+import { AuthReducer } from "./../Reducers/Authreducer";
 import LocalStorage from "./../helpers/localStorage";
 export const AuthContext = createContext();
 
 const AuthContextProvider = props => {
-  const { expiredToken } = LocalStorage();
-  const [isLogged, setIsLogged] = useState(false);
-
-  const setAuth = () => {
-    setIsLogged(true);
-  };
-
-  useEffect(() => {
-    if (expiredToken()) {
-      setIsLogged(false);
-    } else {
-      setIsLogged(true);
-    }
+  // set auth reducers
+  const [isLogged, dispatch] = useReducer(AuthReducer, false, () => {
+    const { expiredToken } = LocalStorage();
+    return expiredToken();
   });
+
   return (
-    <AuthContext.Provider value={{ isLogged, setAuth }}>
+    <AuthContext.Provider value={{ isLogged, dispatch }}>
       {props.children}
     </AuthContext.Provider>
   );
