@@ -1,17 +1,21 @@
 /* eslint-disable react-hooks/rules-of-hooks */
-import React, { Fragment } from "react";
+import React, { Fragment, useContext } from "react";
 import "./login.css";
 import HandleLogin from "./handleLogin";
 import InputText from "../../components/forms/inputText";
 import Button from "../../components/forms/button";
 import { Link } from "react-router-dom";
 import LocalStorage from "./../../helpers/localStorage";
+import { AuthContext } from "./../../ContextApi/authContect";
+
 const INITIAL_STATE = {
-  password: "Namakurama002!",
-  username: "Kallera002"
+  password: "",
+  username: ""
 };
 
-const Login = () => {
+const Login = props => {
+  const { dispatch } = useContext(AuthContext);
+
   const {
     handleChange,
     values,
@@ -23,10 +27,10 @@ const Login = () => {
   } = HandleLogin(INITIAL_STATE);
 
   if (res.data) {
-    const { setToken, getCurrentUser } = LocalStorage(res.data);
-    setToken();
-    const curentUser = getCurrentUser();
-    console.log(curentUser);
+    const { setToken } = LocalStorage();
+    setToken(res.data);
+    props.history.push("/");
+    dispatch({ type: "LOGIN" });
   }
 
   return (

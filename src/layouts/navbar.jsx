@@ -1,34 +1,29 @@
-import React from "react";
-import { Component } from "react";
+import React, { useState } from "react";
 import Tollbar from "./Tollbar/Tollbar";
 import SideDrawer from "./SideDrawer/SideDrawer";
 import BackDrop from "./Backdrop/Backdrop";
 
-class Navbar extends Component {
-  state = {
-    sideDrawerOpen: false
-  };
+const Navbar = () => {
+  const [sideDrawerOpen, setSideDrawerOpen] = useState(false);
 
-  drawerToggleClickHandler = () => {
-    this.setState(prevState => {
-      return { sideDrawerOpen: !prevState.sideDrawerOpen };
+  const drawerToggleClickHandler = () => {
+    setSideDrawerOpen(prevState => {
+      return { sideDrawerOpen: !prevState };
     });
   };
 
-  render() {
-    let backDrop;
-
-    if (this.state.sideDrawerOpen) {
-      backDrop = <BackDrop  click={this.drawerToggleClickHandler}/>;
-    }
-    return (
-      <div>
-        <Tollbar drawerClickHandler={this.drawerToggleClickHandler} />
-        <SideDrawer click={this.drawerToggleClickHandler} show={this.state.sideDrawerOpen} />
-        {backDrop}
-      </div>
-    );
+  let backDrop;
+  if (sideDrawerOpen) {
+    backDrop = <BackDrop click={drawerToggleClickHandler} />;
   }
-}
+
+  return (
+    <div>
+      <Tollbar drawerClickHandler={drawerToggleClickHandler} />
+      <SideDrawer click={drawerToggleClickHandler} show={sideDrawerOpen} />
+      {backDrop}
+    </div>
+  );
+};
 
 export default Navbar;

@@ -1,9 +1,14 @@
-import React, { Fragment } from 'react';
-import './Tollbar.css';
-import DrawerButton from '../SideDrawer/DrawerButton';
-import { Link } from 'react-router-dom';
+import React, { Fragment, useContext } from "react";
+import "./Tollbar.css";
+import DrawerButton from "../SideDrawer/DrawerButton";
+import { Link } from "react-router-dom";
+import { AuthContext } from "./../../ContextApi/authContect";
+import AfterLogin from "../Menus/AfterLogin";
+import BeforeLogin from "../Menus/BeforeLogin";
 
 const Tollbar = props => {
+  const { isLogged } = useContext(AuthContext);
+
   return (
     <Fragment>
       <header className="tollbar">
@@ -13,18 +18,11 @@ const Tollbar = props => {
           </div>
 
           <div className="tollbar__logo">
-            <a href="/">Logo</a>
+            <Link to="/">Logo</Link>
           </div>
           <div className="spacer"></div>
           <div className="tollbar-navigation__items">
-            <ul>
-              <li className="toolbar__item">
-                <Link to="/login">Login</Link>
-              </li>
-              <li className="to0lbar__item">
-                <a href="/">User</a>
-              </li>
-            </ul>
+            {isLogged ? <AfterLogin /> : <BeforeLogin />}
           </div>
         </nav>
       </header>

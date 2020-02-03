@@ -6,10 +6,10 @@ import HandleRegister from "./handleRegister";
 import { Redirect } from "react-router";
 
 const INITIAL_STATE = {
-  email: "",
-  password: "",
-  password_confirmation: "",
-  username: ""
+  email: "fikriramadhan002@gmail.com",
+  password: "Kallera002!",
+  password_confirmation: "Kallera002!",
+  username: "Kallera002!"
 };
 
 const Register = () => {

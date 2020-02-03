@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react';
-import InputPassword from './../../validations/rules/onInput/inputPassword';
-import InputText from './../../validations/rules/onInput/inputText';
+import { useState, useEffect } from "react";
+import InputPassword from "./../../validations/rules/onInput/inputPassword";
+import InputText from "./../../validations/rules/onInput/inputText";
 
 import UsernameAuthentication from '../../validations/rules/submitForm/username';
 import passwordAuthentication from '../../validations/rules/submitForm/password';
@@ -28,7 +28,11 @@ const HandleLogin = initialState => {
         setIsSubmitting(false);
       }
     }
+<<<<<<< HEAD
   }, [errors, isSubmitting, setIsSubmitting]);
+=======
+  }, [errors, isSubmitting]);
+>>>>>>> de22a6c13a2513e7f6142455593c4c8cf52d9c3a
 
   // lakukan perubahan pada value setiap ada perubahan dari form
   const handleChange = event => {
