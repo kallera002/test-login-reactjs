@@ -1,8 +1,8 @@
-import { useState, useCallback } from "react";
-import axios from "axios";
+import { useState, useCallback } from 'react';
+import axios from 'axios';
 
-import errorHandler409 from "../utils/errorHandler_409";
-import errorHandler422 from "./../utils/errorHandler_422";
+import errorHandler409 from '../utils/errorHandler_409';
+import errorHandler422 from './../utils/errorHandler_422';
 
 const HttpPostData = ({ url, headers, payload }) => {
   const [res, setRes] = useState({
@@ -28,6 +28,7 @@ const HttpPostData = ({ url, headers, payload }) => {
             });
           })
           .catch(async error => {
+            console.log('TCL: PostData -> error', error);
             let errorList = {};
             let conflig = {};
 
@@ -35,10 +36,7 @@ const HttpPostData = ({ url, headers, payload }) => {
               errorList = await errorHandler422(error.response.data);
             }
 
-            if (
-              error.response.status === 409 ||
-              error.response.status === 401
-            ) {
+            if (error.response.status === 409 || error.response.status === 401) {
               conflig = await errorHandler409(error.response.data);
             }
 
@@ -54,7 +52,7 @@ const HttpPostData = ({ url, headers, payload }) => {
       }
     }
 
-    if (payload !== "") {
+    if (payload !== '') {
       PostData();
     }
   }, [headers, payload, url]);

@@ -2,10 +2,10 @@ import { useState, useEffect } from "react";
 import InputPassword from "./../../validations/rules/onInput/inputPassword";
 import InputText from "./../../validations/rules/onInput/inputText";
 
-import UsernameAuthentication from "../../validations/rules/submitForm/username";
-import passwordAuthentication from "../../validations/rules/submitForm/password";
+import UsernameAuthentication from '../../validations/rules/submitForm/username';
+import passwordAuthentication from '../../validations/rules/submitForm/password';
 
-import HttpPostData from "../../constant/httpRequest";
+import HttpPostData from '../../constant/httpRequest';
 
 const HandleLogin = initialState => {
   const [errors, setErrors] = useState({});
@@ -14,8 +14,8 @@ const HandleLogin = initialState => {
 
   // FUNGSI UNTUK STORE DATA KE DATABASE
   const [res, callAPIPost] = HttpPostData({
-    url: process.env.REACT_APP_CUSTOM_BASE_URL + "auth/login",
-    headers: { ContentType: "application/json" },
+    url: process.env.REACT_APP_CUSTOM_BASE_URL + 'auth/login',
+    headers: { ContentType: 'application/json' },
     payload: values
   });
 
@@ -28,7 +28,11 @@ const HandleLogin = initialState => {
         setIsSubmitting(false);
       }
     }
+<<<<<<< HEAD
+  }, [errors, isSubmitting, setIsSubmitting]);
+=======
   }, [errors, isSubmitting]);
+>>>>>>> de22a6c13a2513e7f6142455593c4c8cf52d9c3a
 
   // lakukan perubahan pada value setiap ada perubahan dari form
   const handleChange = event => {
@@ -72,8 +76,6 @@ const HandleLogin = initialState => {
     if (validationErrors.length !== undefined) {
       setErrors(validationErrors);
     } else {
-      console.log("POST DATA");
-
       // Post data ke database jika sudah tidak ada data yang error
       callAPIPost();
     }
