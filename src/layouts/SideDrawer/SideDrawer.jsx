@@ -2,11 +2,15 @@ import React, { Fragment } from 'react';
 import './SideDrawer.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Link } from 'react-router-dom';
-const SideDrawer = props => {
+
+
+const SideDrawer = React.memo(props => {
+
   let drawerClasses = 'side-drawer';
   if (props.show) {
     drawerClasses = 'side-drawer open';
   }
+  
   return (
     <Fragment>
       <nav className={drawerClasses}>
@@ -32,6 +36,8 @@ const SideDrawer = props => {
       </nav>
     </Fragment>
   );
-};
+}, (prev, next) => {
+  return false;
+});
 
 export default SideDrawer;

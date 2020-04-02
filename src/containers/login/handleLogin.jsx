@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import InputPassword from "./../../validations/rules/onInput/inputPassword";
 import InputText from "./../../validations/rules/onInput/inputText";
 
@@ -11,6 +11,9 @@ const HandleLogin = initialState => {
   const [errors, setErrors] = useState({});
   const [values, setValues] = useState(initialState);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [event, setEvent] = useState(true);
+
+
 
   // FUNGSI UNTUK STORE DATA KE DATABASE
   const [res, callAPIPost] = HttpPostData({
@@ -28,19 +31,20 @@ const HandleLogin = initialState => {
         setIsSubmitting(false);
       }
     }
-<<<<<<< HEAD
-  }, [errors, isSubmitting, setIsSubmitting]);
-=======
-  }, [errors, isSubmitting]);
->>>>>>> de22a6c13a2513e7f6142455593c4c8cf52d9c3a
+    return isSubmitting => {
+      isSubmitting = false;
+    };
+  }, [errors, isSubmitting, setEvent]);
 
   // lakukan perubahan pada value setiap ada perubahan dari form
-  const handleChange = event => {
-    setValues({
-      ...values,
-      [event.target.name]: event.target.value
-    });
-  };
+  const handleChange = useCallback(
+    event => {
+      setValues({
+        [event.target.name]: event.target.value
+      });
+    },
+    [setValues]
+  );
 
   /**
    * @description validasi form input type username
@@ -50,6 +54,7 @@ const HandleLogin = initialState => {
     delete errors[event.target.name];
     const validationErrors = InputText(event);
     setErrors({ ...errors, ...validationErrors });
+    setEvent(prev => !prev);
   };
 
   /**
@@ -59,7 +64,10 @@ const HandleLogin = initialState => {
   const handleInputPassword = event => {
     delete errors[event.target.name];
     const validationErrors = InputPassword(event);
-    setErrors({ ...errors, ...validationErrors });
+    if (validationErrors !== '') {
+      setErrors({ ...errors, ...validationErrors });
+      setEvent(prev => !prev)
+    }
   };
 
   const handleSubmit = event => {
@@ -83,10 +91,13 @@ const HandleLogin = initialState => {
     setIsSubmitting(true);
   };
 
+
+
   return {
     handleSubmit,
     errors,
     values,
+    event,
     handleChange,
     handleInputText,
     handleInputPassword,

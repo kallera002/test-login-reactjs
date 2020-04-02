@@ -38,6 +38,9 @@ const HandleRegister = initialState => {
         setIsSubmitting(false);
       }
     }
+    return isSubmitting => {
+      isSubmitting = false;
+    };
   }, [errors, isSubmitting]);
 
   /**
@@ -131,16 +134,16 @@ const HandleRegister = initialState => {
   };
 
   return {
-    handleChange,
     values,
-    handleSubmit,
     errors,
-    handleInputText,
     isSubmitting,
+    res,
+    handleSubmit,
+    handleInputText,
     handleInputPassword,
     handleInputPasswordConfirmation,
     handleInputEmail,
-    res
+    handleChange
   };
 };
 

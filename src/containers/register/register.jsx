@@ -6,10 +6,10 @@ import HandleRegister from "./handleRegister";
 import { Redirect } from "react-router";
 
 const INITIAL_STATE = {
-  email: "fikriramadhan002@gmail.com",
-  password: "Kallera002!",
-  password_confirmation: "Kallera002!",
-  username: "Kallera002!"
+  email: "",
+  password: "",
+  password_confirmation: "",
+  username: ""
 };
 
 const Register = () => {
@@ -51,7 +51,7 @@ const Register = () => {
             error={res.error ? res.error.username : errors.username}
             label="username"
             change={handleChange}
-            input={handleInputText}
+            blur={handleInputText}
             value={values.username}
             name="username"
             type="text"
@@ -62,7 +62,7 @@ const Register = () => {
             error={res.error ? res.error.email : errors.email}
             label="email"
             change={handleChange}
-            input={handleInputEmail}
+            blur={handleInputEmail}
             value={values.email}
             name="email"
             type="text"
@@ -74,7 +74,7 @@ const Register = () => {
             error={res.error ? res.error.password : errors.password}
             name="password"
             change={handleChange}
-            input={handleInputPassword}
+            blur={handleInputPassword}
             value={values.password}
             type="password"
             required={true}
@@ -90,7 +90,7 @@ const Register = () => {
             label="password confirmation"
             name="password_confirmation"
             change={handleChange}
-            input={handleInputPasswordConfirmation}
+            blur={handleInputPasswordConfirmation}
             value={values.password_confirmation}
             type="password"
             matches="true"

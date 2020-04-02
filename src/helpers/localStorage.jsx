@@ -1,7 +1,5 @@
 const LocalStorage = () => {
-  // const [values, setValues] = useState(token);
-  // // Return a wrapped version of useState's setter function that ...
-  // // ... persists the new value to localStorage.
+
   const setToken = data => {
     localStorage.setItem(
       btoa(process.env.LOCALSTORAGE_KEY),
@@ -12,8 +10,10 @@ const LocalStorage = () => {
   const getToken = () => {
     const token = localStorage.getItem(btoa(process.env.LOCALSTORAGE_KEY));
     if (token) {
-      const data = atob(token.split(".")[1]);
-      return JSON.parse(data);
+      // console.log(token);
+      // const data = atob(token.split(".")[1]);
+      
+      return JSON.parse(token);
     } else {
       return null;
     }

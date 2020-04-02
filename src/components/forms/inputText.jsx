@@ -1,5 +1,10 @@
-import React, { Fragment } from "react";
-const InputText = props => {
+import React, { Fragment, useRef} from "react";
+const InputText = React.memo(props => {
+
+
+  const ref = useRef(0)
+  console.log('RENDER' + ref.current++);
+  
   return (
     <Fragment>
       <div className="row form__group">
@@ -11,9 +16,8 @@ const InputText = props => {
             className={"input__text " + (props.error ? "input__error" : "")}
             type={props.type}
             onChange={props.change}
-            value={props.value}
             name={props.name}
-            onInput={props.input}
+            onBlur={props.blur}
             required={props.required}
             special-character={props.specialCharacter}
             matches={props.matches}
@@ -25,6 +29,12 @@ const InputText = props => {
       </div>
     </Fragment>
   );
-};
+}, (prevProps, nextProps) => {
+  if(prevProps.render !== nextProps.render) {
+    return false;
+  }
+  return true;
+  
+});
 
 export default InputText;

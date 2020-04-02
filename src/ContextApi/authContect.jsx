@@ -4,6 +4,7 @@ import LocalStorage from "./../helpers/localStorage";
 export const AuthContext = createContext();
 
 const AuthContextProvider = props => {
+  
   // set auth reducers
   const [isLogged, dispatch] = useReducer(AuthReducer, false, () => {
     const { expiredToken } = LocalStorage();
