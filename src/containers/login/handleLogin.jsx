@@ -28,11 +28,7 @@ const HandleLogin = initialState => {
         setIsSubmitting(false);
       }
     }
-<<<<<<< HEAD
-  }, [errors, isSubmitting, setIsSubmitting]);
-=======
   }, [errors, isSubmitting]);
->>>>>>> de22a6c13a2513e7f6142455593c4c8cf52d9c3a
 
   // lakukan perubahan pada value setiap ada perubahan dari form
   const handleChange = event => {
